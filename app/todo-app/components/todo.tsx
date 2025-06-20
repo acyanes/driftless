@@ -33,6 +33,10 @@ export default function Todo({ todo }: { todo: TodoType }) {
     }
   };
 
+  const handleCheckTodo = () => {
+    db.todos.update(todo.id, { completed: !todo.completed });
+  };
+
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
@@ -42,7 +46,12 @@ export default function Todo({ todo }: { todo: TodoType }) {
 
   return (
     <div className="cursor-pointer p-4 m-2 w-[300px] bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between">
-      <input type="checkbox" className="mr-2" />
+      <input
+        type="checkbox"
+        className="mr-2"
+        onChange={handleCheckTodo}
+        checked={todo.completed}
+      />
       {isEditing ? (
         <input
           ref={inputRef}
